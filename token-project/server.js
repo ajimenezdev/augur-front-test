@@ -75,9 +75,22 @@ app.get("/:token/stats/richest", (request, response) => {
 });
 
 app.get("/:token/stats/mostActive", (request, response) => {
-  // TODO
-  response.type("json").send({});
-});
+    const { token } = request.params
+    let { time } = request.query
+
+    time = parseTime(time)
+    if (time === null) {
+        return response.status(400).send({ error: "time must be an integer" })
+    }
+
+    if (typeof DATA[token] === "undefined") {
+        return response.status(404).send({ error: "no such token" })
+    }
+
+    const mostActive = calculateMostActive(DATA, token, time);
+
+    response.type("json").send(JSON.stringify(mostActive))
+})
 
 // If time exists then it must be an integer.
 function parseTime(timeString) {
