@@ -1,0 +1,22 @@
+.header {
+  background-color: #282c34;
+  padding: 16px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  color: white;
+}
+
+.header-title {
+  font-size: calc(10px + 2vmin);
+}
+
+.header-token {
+  display: flex;
+  align-items: center;
+}
+
+.header-editIcon {
+  color: white;
+}
