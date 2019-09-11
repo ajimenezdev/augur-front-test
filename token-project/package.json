@@ -1,0 +1,20 @@
+{
+  "name": "augurtest",
+  "version": "1.0.0",
+  "description": "coding test for augur",
+  "main": "server.js",
+  "scripts": {
+    "test": "ava",
+    "start": "node server.js"
+  },
+  "author": "Robert Davidson",
+  "license": "ISC",
+  "dependencies": {
+    "bignumber.js": "^7.2.1",
+    "express": "^4.16.4"
+  },
+  "devDependencies": {
+    "ava": "^0.25.0",
+    "supertest": "^3.3.0"
+  }
+}
