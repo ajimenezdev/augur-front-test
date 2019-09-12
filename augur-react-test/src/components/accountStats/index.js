@@ -15,6 +15,7 @@ import {
   DialogActions,
   Button
 } from "@material-ui/core";
+import BigNumber from "bignumber.js";
 import "./accountStats.css";
 
 const AccountStats = ({
@@ -55,7 +56,12 @@ const AccountStats = ({
             {balanceFetching ? (
               <CircularProgress size={20} />
             ) : (
-              <span className="accountStats-value">{balance}</span>
+              <span className="accountStats-value">
+                {balance &&
+                  BigNumber(balance)
+                    .dividedBy(BigNumber(10).exponentiatedBy(18))
+                    .toFormat(2)}
+              </span>
             )}
           </div>
         </CardContent>
@@ -64,6 +70,8 @@ const AccountStats = ({
         open={editVisible}
         onClose={() => setEditVisible(false)}
         aria-labelledby="form-dialog-title"
+        maxWidth="sm"
+        fullWidth
       >
         <DialogTitle id="form-dialog-title">Change Account</DialogTitle>
         <DialogContent>

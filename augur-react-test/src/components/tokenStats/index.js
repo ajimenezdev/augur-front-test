@@ -9,6 +9,7 @@ import {
   Icon,
   CircularProgress
 } from "@material-ui/core";
+import BigNumber from "bignumber.js";
 import "./tokenStats.css";
 
 const TokenStats = ({ token, tokenStats, onForceRefresh }) => {
@@ -42,7 +43,12 @@ const TokenStats = ({ token, tokenStats, onForceRefresh }) => {
           {averageTxFetching ? (
             <CircularProgress size={20} />
           ) : (
-            <span className="tokenStats-value">{averageTx}</span>
+            <span className="tokenStats-value">
+              {averageTx &&
+                BigNumber(averageTx)
+                  .dividedBy(BigNumber(10).exponentiatedBy(18))
+                  .toFormat(2)}
+            </span>
           )}
         </div>
         <Divider variant="fullWidth" />
@@ -51,7 +57,12 @@ const TokenStats = ({ token, tokenStats, onForceRefresh }) => {
           {medianTxFetching ? (
             <CircularProgress size={20} />
           ) : (
-            <span className="tokenStats-value">{medianTx}</span>
+            <span className="tokenStats-value">
+              {medianTx &&
+                BigNumber(medianTx)
+                  .dividedBy(BigNumber(10).exponentiatedBy(18))
+                  .toFormat(2)}
+            </span>
           )}
         </div>
         <Divider variant="fullWidth" />
