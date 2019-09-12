@@ -41,7 +41,7 @@ const AccountStats = ({
           action={
             <Fragment>
               <IconButton
-                aria-label="refresh-accountStats"
+                aria-label="edit-account"
                 onClick={() => setEditVisible(true)}
               >
                 <Icon className="accountStats-refreshIcon">edit</Icon>
@@ -61,7 +61,7 @@ const AccountStats = ({
             {balanceFetching ? (
               <CircularProgress size={20} />
             ) : (
-              <span className="accountStats-value">
+              <span className="accountStats-value" aria-label="account-balance">
                 {balance &&
                   BigNumber(balance)
                     .dividedBy(BigNumber(10).exponentiatedBy(18))
@@ -75,7 +75,10 @@ const AccountStats = ({
             {transactionsCountFetching ? (
               <CircularProgress size={20} />
             ) : (
-              <span className="accountStats-value">
+              <span
+                className="accountStats-value"
+                aria-label="account-outgoing"
+              >
                 {transactionsCount &&
                   BigNumber(transactionsCount.outgoingTx).toFormat(2)}
               </span>
@@ -87,7 +90,10 @@ const AccountStats = ({
             {transactionsCountFetching ? (
               <CircularProgress size={20} />
             ) : (
-              <span className="accountStats-value">
+              <span
+                className="accountStats-value"
+                aria-label="account-incoming"
+              >
                 {transactionsCount &&
                   BigNumber(transactionsCount.incomingTx).toFormat(2)}
               </span>
@@ -98,7 +104,7 @@ const AccountStats = ({
       <Dialog
         open={editVisible}
         onClose={() => setEditVisible(false)}
-        aria-labelledby="form-dialog-title"
+        aria-labelledby="form-dialog"
         maxWidth="sm"
         fullWidth
       >
@@ -109,6 +115,7 @@ const AccountStats = ({
             margin="dense"
             id="account"
             label="Account address"
+            inputProps={{ "aria-label": "address" }}
             type="text"
             onChange={event => setNewAccount(event.target.value)}
             value={newAccount}
@@ -125,6 +132,7 @@ const AccountStats = ({
               onAccountChange(newAccount);
             }}
             color="primary"
+            aria-label="save-button"
           >
             Save
           </Button>

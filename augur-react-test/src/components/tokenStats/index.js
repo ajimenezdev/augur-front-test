@@ -29,10 +29,7 @@ const TokenStats = ({ token, tokenStats, onForceRefresh }) => {
         title="Token Stats"
         subheader={token}
         action={
-          <IconButton
-            aria-label="refresh-accountStats"
-            onClick={onForceRefresh}
-          >
+          <IconButton aria-label="refresh-tokenStats" onClick={onForceRefresh}>
             <Icon className="accountStats-refreshIcon">refresh</Icon>
           </IconButton>
         }
@@ -43,7 +40,7 @@ const TokenStats = ({ token, tokenStats, onForceRefresh }) => {
           {averageTxFetching ? (
             <CircularProgress size={20} className="tokenStats-value" />
           ) : (
-            <span className="tokenStats-value">
+            <span className="tokenStats-value" aria-label="token-average">
               {averageTx &&
                 BigNumber(averageTx)
                   .dividedBy(BigNumber(10).exponentiatedBy(18))
@@ -57,7 +54,7 @@ const TokenStats = ({ token, tokenStats, onForceRefresh }) => {
           {medianTxFetching ? (
             <CircularProgress size={20} className="tokenStats-value" />
           ) : (
-            <span className="tokenStats-value">
+            <span className="tokenStats-value" aria-label="token-median">
               {medianTx &&
                 BigNumber(medianTx)
                   .dividedBy(BigNumber(10).exponentiatedBy(18))
@@ -71,7 +68,9 @@ const TokenStats = ({ token, tokenStats, onForceRefresh }) => {
           {richestAccFetching ? (
             <CircularProgress size={20} className="tokenStats-value" />
           ) : (
-            <span className="tokenStats-value">{richestAcc}</span>
+            <span className="tokenStats-value" aria-label="token-richest">
+              {richestAcc}
+            </span>
           )}
         </div>
         <Divider variant="fullWidth" />
@@ -80,7 +79,9 @@ const TokenStats = ({ token, tokenStats, onForceRefresh }) => {
           {mostActiveAccFetching ? (
             <CircularProgress size={20} className="tokenStats-value" />
           ) : (
-            <span className="tokenStats-value">{mostActiveAcc}</span>
+            <span className="tokenStats-value" aria-label="token-mostActive">
+              {mostActiveAcc}
+            </span>
           )}
         </div>
       </CardContent>

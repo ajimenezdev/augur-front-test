@@ -1,0 +1,125 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders without crashing 1`] = `
+<div
+  className="MuiPaper-root MuiPaper-elevation1 MuiCard-root tokenStats MuiPaper-rounded"
+>
+  <div
+    className="MuiCardHeader-root"
+  >
+    <div
+      className="MuiCardHeader-content"
+    >
+      <span
+        className="MuiTypography-root MuiCardHeader-title MuiTypography-h5 MuiTypography-displayBlock"
+      >
+        Token Stats
+      </span>
+      <span
+        className="MuiTypography-root MuiCardHeader-subheader MuiTypography-body1 MuiTypography-colorTextSecondary MuiTypography-displayBlock"
+      >
+        
+      </span>
+    </div>
+    <div
+      className="MuiCardHeader-action"
+    >
+      <button
+        aria-label="refresh-tokenStats"
+        className="MuiButtonBase-root MuiIconButton-root"
+        disabled={false}
+        onBlur={[Function]}
+        onClick={[Function]}
+        onDragLeave={[Function]}
+        onFocus={[Function]}
+        onKeyDown={[Function]}
+        onKeyUp={[Function]}
+        onMouseDown={[Function]}
+        onMouseLeave={[Function]}
+        onMouseUp={[Function]}
+        onTouchEnd={[Function]}
+        onTouchMove={[Function]}
+        onTouchStart={[Function]}
+        tabIndex={0}
+        type="button"
+      >
+        <span
+          className="MuiIconButton-label"
+        >
+          <span
+            aria-hidden={true}
+            className="material-icons MuiIcon-root accountStats-refreshIcon"
+          >
+            refresh
+          </span>
+        </span>
+      </button>
+    </div>
+  </div>
+  <div
+    className="MuiCardContent-root tokenStats-content"
+  >
+    <div
+      className="tokenStats-infoRow"
+    >
+      <span
+        className="tokenStats-label"
+      >
+        Average Token Transaction:
+      </span>
+      <span
+        aria-label="token-average"
+        className="tokenStats-value"
+      />
+    </div>
+    <hr
+      className="MuiDivider-root"
+    />
+    <div
+      className="tokenStats-infoRow"
+    >
+      <span
+        className="tokenStats-label"
+      >
+        Median Token Transaction:
+      </span>
+      <span
+        aria-label="token-median"
+        className="tokenStats-value"
+      />
+    </div>
+    <hr
+      className="MuiDivider-root"
+    />
+    <div
+      className="tokenStats-infoCol"
+    >
+      <span
+        className="tokenStats-label"
+      >
+        Richest Token holder:
+      </span>
+      <span
+        aria-label="token-richest"
+        className="tokenStats-value"
+      />
+    </div>
+    <hr
+      className="MuiDivider-root"
+    />
+    <div
+      className="tokenStats-infoCol"
+    >
+      <span
+        className="tokenStats-label"
+      >
+        MostActive Token holder:
+      </span>
+      <span
+        aria-label="token-mostActive"
+        className="tokenStats-value"
+      />
+    </div>
+  </div>
+</div>
+`;

@@ -43,6 +43,7 @@ const Header = ({ token, onTokenChange }) => {
             margin="dense"
             id="token"
             label="Token address"
+            inputProps={{ "aria-label": "token" }}
             type="text"
             onChange={event => setNewToken(event.target.value)}
             value={newToken}
@@ -58,6 +59,7 @@ const Header = ({ token, onTokenChange }) => {
               setEditVisible(false);
               onTokenChange(newToken);
             }}
+            aria-label="save-button"
             color="primary"
           >
             Save
