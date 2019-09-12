@@ -130,6 +130,14 @@ function calculateBalance(data, token, account, time) {
     }, BigNumber(0))
 }
 
+function calculateAccTransactionCount(data, token, account, time) {
+    const outgoingTx = calculateActivity(data, token, account, time);
+    const incomingTx = data[token][account].length - outgoingTx;
+    return { outgoingTx, incomingTx }
+}
+
+
+
 module.exports = {
     loadTransactions,
     buildDataStructure,
@@ -139,5 +147,6 @@ module.exports = {
     calculateRichest,
     calculateMostActive,
     calculateActivity,
-    calculateBalance
+    calculateBalance,
+    calculateAccTransactionCount
 }

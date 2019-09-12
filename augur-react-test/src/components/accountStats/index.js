@@ -24,7 +24,12 @@ const AccountStats = ({
   onAccountChange,
   onForceRefresh
 }) => {
-  const { balance, balanceFetching } = accountStats;
+  const {
+    balance,
+    balanceFetching,
+    transactionsCount,
+    transactionsCountFetching
+  } = accountStats;
   const [editVisible, setEditVisible] = useState(false);
   const [newAccount, setNewAccount] = useState("");
   return (
@@ -65,6 +70,29 @@ const AccountStats = ({
             )}
           </div>
           <Divider />
+          <div className="accountStats-infoRow">
+            <span className="accountStats-label">Outgoing Tx:</span>
+            {transactionsCountFetching ? (
+              <CircularProgress size={20} />
+            ) : (
+              <span className="accountStats-value">
+                {transactionsCount &&
+                  BigNumber(transactionsCount.outgoingTx).toFormat(2)}
+              </span>
+            )}
+          </div>
+          <Divider />
+          <div className="accountStats-infoRow">
+            <span className="accountStats-label">Incoming Tx:</span>
+            {transactionsCountFetching ? (
+              <CircularProgress size={20} />
+            ) : (
+              <span className="accountStats-value">
+                {transactionsCount &&
+                  BigNumber(transactionsCount.incomingTx).toFormat(2)}
+              </span>
+            )}
+          </div>
         </CardContent>
       </Card>
       <Dialog

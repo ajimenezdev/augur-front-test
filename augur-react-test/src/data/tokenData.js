@@ -16,7 +16,9 @@ const initialState = {
   selectedAccount: "0xfbb1b73c4f0bda4f67dca266ce6ef42f520fbb98",
   accountStats: {
     balance: null,
-    balanceFetching: false
+    balanceFetching: false,
+    transactionsCount: null,
+    transactionsCountFetching: false
   }
 };
 
@@ -31,7 +33,8 @@ const actions = {
 
   setAccount: "set_account",
   fetchAccountStats: "fetch_account_stats",
-  setAccountBalance: "set_account_balance"
+  setAccountBalance: "set_account_balance",
+  setAccTransactionsCount: "set_account_tx_count"
 };
 
 const reducer = (state, action) => {
@@ -93,7 +96,11 @@ const reducer = (state, action) => {
     case actions.fetchAccountStats:
       return {
         ...state,
-        accountStats: { ...state.accountStats, balanceFetching: true }
+        accountStats: {
+          ...state.accountStats,
+          balanceFetching: true,
+          transactionsCountFetching: true
+        }
       };
     case actions.setAccountBalance:
       return {
@@ -102,6 +109,15 @@ const reducer = (state, action) => {
           ...state.accountStats,
           balanceFetching: false,
           balance: action.balance
+        }
+      };
+    case actions.setAccTransactionsCount:
+      return {
+        ...state,
+        accountStats: {
+          ...state.accountStats,
+          transactionsCountFetching: false,
+          transactionsCount: action.transactionsCount
         }
       };
 
@@ -123,7 +139,6 @@ const processTokenStatsResponse = (response, dispatch) => {
 };
 
 const fetchTokenStats = (dispatch, token) => {
-  console.log("test:token", token);
   // set fetching variables to true
   dispatch({ type: actions.fetchTokenStats });
 
@@ -159,6 +174,11 @@ const fetchAccountStats = (dispatch, token, account) => {
   fetch(`${BASE_URL}/${token}/account/${account}/balance`)
     .then(response => response.json())
     .then(balance => dispatch({ type: actions.setAccountBalance, balance }));
+  fetch(`${BASE_URL}/${token}/account/${account}/transactionsCount`)
+    .then(response => response.json())
+    .then(transactionsCount =>
+      dispatch({ type: actions.setAccTransactionsCount, transactionsCount })
+    );
 };
 
 export {

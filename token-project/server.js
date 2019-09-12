@@ -7,7 +7,8 @@ const {
   calculateMedian,
   calculateRichest,
   calculateMostActive,
-  calculateBalance
+  calculateBalance,
+  calculateAccTransactionCount
 } = require("./calculations");
 
 const app = express();
@@ -33,6 +34,26 @@ app.get("/:token/account/:account/balance", (request, response) => {
   const balance = calculateBalance(DATA, token, account, time);
 
   response.type("json").send(balance.toString());
+});
+
+app.get("/:token/account/:account/transactionsCount", (request, response) => {
+  const { token, account } = request.params;
+  let { time } = request.query;
+
+  time = parseTime(time);
+  if (time === null) {
+    return response.status(400).send({ error: "time must be an integer" });
+  }
+
+  if (typeof DATA[token] === "undefined") {
+    return response.status(404).send({ error: "no such token" });
+  } else if (typeof DATA[token][account] === "undefined") {
+    return response.status(404).send({ error: "no such account" });
+  }
+
+  const transactionsCount = calculateAccTransactionCount(DATA, token, account, time);
+
+  response.type("json").send(JSON.stringify(transactionsCount));
 });
 
 app.get("/:token/stats/average", (request, response) => {
