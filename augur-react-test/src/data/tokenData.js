@@ -2,6 +2,7 @@ const BASE_URL = "http://localhost:8080";
 
 const initialState = {
   selectedToken: "0x1985365e9f78359a9b6ad760e32412f4a445e862",
+  selectedTokenError: false,
   tokenStats: {
     averageTx: null,
     averageTxFetching: false,
@@ -21,6 +22,7 @@ const initialState = {
 
 const actions = {
   setToken: "set_token",
+  setTokenError: "set_token_error",
   fetchTokenStats: "fetch_token_stats",
   setAvgTx: "set_avg_tx",
   setMedTx: "set_med_tx",
@@ -36,6 +38,8 @@ const reducer = (state, action) => {
   switch (action.type) {
     case actions.setToken:
       return { ...state, selectedToken: action.token };
+    case actions.setTokenError:
+      return { ...state, selectedTokenError: action.error };
     case actions.fetchTokenStats:
       return {
         ...state,
@@ -109,25 +113,36 @@ const reducer = (state, action) => {
 const setToken = (dispatch, token) =>
   dispatch({ type: actions.setToken, token });
 
+const processTokenStatsResponse = (response, dispatch) => {
+  if (response.ok) {
+    dispatch({ type: actions.setTokenError, error: false });
+    return response.json();
+  } else {
+    dispatch({ type: actions.setTokenError, error: true });
+  }
+};
+
 const fetchTokenStats = (dispatch, token) => {
+  console.log("test:token", token);
   // set fetching variables to true
   dispatch({ type: actions.fetchTokenStats });
 
   // Fetch asynchronously all data points
   fetch(`${BASE_URL}/${token}/stats/average`)
-    .then(response => response.json())
-    .then(averageTx => dispatch({ type: actions.setAvgTx, averageTx }));
+    .then(response => processTokenStatsResponse(response, dispatch))
+    .then(averageTx => dispatch({ type: actions.setAvgTx, averageTx }))
+    .catch(e => console.log("test:e", e));
 
   fetch(`${BASE_URL}/${token}/stats/median`)
-    .then(response => response.json())
+    .then(response => processTokenStatsResponse(response, dispatch))
     .then(medianTx => dispatch({ type: actions.setMedTx, medianTx }));
 
   fetch(`${BASE_URL}/${token}/stats/richest`)
-    .then(response => response.json())
+    .then(response => processTokenStatsResponse(response, dispatch))
     .then(richestAcc => dispatch({ type: actions.setRichestAcc, richestAcc }));
 
   fetch(`${BASE_URL}/${token}/stats/mostActive`)
-    .then(response => response.json())
+    .then(response => processTokenStatsResponse(response, dispatch))
     .then(mostActiveAcc =>
       dispatch({ type: actions.setMostActAcc, mostActiveAcc })
     );
