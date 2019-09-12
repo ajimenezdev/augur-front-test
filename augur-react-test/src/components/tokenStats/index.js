@@ -6,18 +6,32 @@ import {
   CardContent,
   Divider,
   IconButton,
-  Icon
+  Icon,
+  CircularProgress
 } from "@material-ui/core";
 import "./tokenStats.css";
 
-const TokenStats = () => {
+const TokenStats = ({ token, tokenStats, onForceRefresh }) => {
+  const {
+    averageTx,
+    averageTxFetching,
+    medianTx,
+    medianTxFetching,
+    richestAcc,
+    richestAccFetching,
+    mostActiveAcc,
+    mostActiveAccFetching
+  } = tokenStats;
   return (
     <Card>
       <CardHeader
         title="Token Stats"
-        subheader="0x1985365e9f78359a9b6ad760e32412f4a445e862"
+        subheader={token}
         action={
-          <IconButton aria-label="refresh-accountStats">
+          <IconButton
+            aria-label="refresh-accountStats"
+            onClick={onForceRefresh}
+          >
             <Icon className="accountStats-refreshIcon">refresh</Icon>
           </IconButton>
         }
@@ -25,28 +39,38 @@ const TokenStats = () => {
       <CardContent className="tokenStats-content">
         <div className="tokenStats-infoRow">
           <span className="tokenStats-label">Average Token Transaction:</span>
-          <span className="tokenStats-value">
-            217023590637280046407.41185994737907306213
-          </span>
+          {averageTxFetching ? (
+            <CircularProgress size={20} />
+          ) : (
+            <span className="tokenStats-value">{averageTx}</span>
+          )}
         </div>
         <Divider variant="fullWidth" />
         <div className="tokenStats-infoRow">
           <span className="tokenStats-label">Median Token Transaction:</span>
-          <span className="tokenStats-value">2.2471899999149414e+21</span>
+          {medianTxFetching ? (
+            <CircularProgress size={20} />
+          ) : (
+            <span className="tokenStats-value">{medianTx}</span>
+          )}
         </div>
         <Divider variant="fullWidth" />
         <div className="tokenStats-infoRow">
           <span className="tokenStats-label">Richest Token holder:</span>
-          <span className="tokenStats-value">
-            0xfbb1b73c4f0bda4f67dca266ce6ef42f520fbb98
-          </span>
+          {richestAccFetching ? (
+            <CircularProgress size={20} />
+          ) : (
+            <span className="tokenStats-value">{richestAcc}</span>
+          )}
         </div>
         <Divider variant="fullWidth" />
         <div className="tokenStats-infoRow">
           <span className="tokenStats-label">MostActive Token holder:</span>
-          <span className="tokenStats-value">
-            0x200a328032c81691da4b29c824558ee85ad95d29
-          </span>
+          {mostActiveAccFetching ? (
+            <CircularProgress size={20} />
+          ) : (
+            <span className="tokenStats-value">{mostActiveAcc}</span>
+          )}
         </div>
       </CardContent>
     </Card>

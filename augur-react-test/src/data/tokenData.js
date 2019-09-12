@@ -1,7 +1,7 @@
 const BASE_URL = "http://localhost:8080";
 
 const initialState = {
-  selectedToken: null,
+  selectedToken: "0x1985365e9f78359a9b6ad760e32412f4a445e862",
   tokenStats: {
     averageTx: null,
     averageTxFetching: false,
@@ -36,7 +36,7 @@ const reducer = (state, action) => {
   switch (action.type) {
     case actions.setToken:
       return { ...state, selectedToken: action.token };
-    case action.fetchTokenStats:
+    case actions.fetchTokenStats:
       return {
         ...state,
         tokenStats: {
@@ -47,7 +47,7 @@ const reducer = (state, action) => {
           mostActiveAccFetching: true
         }
       };
-    case action.setAvgTx:
+    case actions.setAvgTx:
       return {
         ...state,
         tokenStats: {
@@ -56,7 +56,7 @@ const reducer = (state, action) => {
           averageTx: action.averageTx
         }
       };
-    case action.setMedTx:
+    case actions.setMedTx:
       return {
         ...state,
         tokenStats: {
@@ -65,7 +65,7 @@ const reducer = (state, action) => {
           medianTx: action.medianTx
         }
       };
-    case action.setRichestAcc:
+    case actions.setRichestAcc:
       return {
         ...state,
         tokenStats: {
@@ -74,7 +74,7 @@ const reducer = (state, action) => {
           richestAcc: action.richestAcc
         }
       };
-    case action.setMostActAcc:
+    case actions.setMostActAcc:
       return {
         ...state,
         tokenStats: {
@@ -84,14 +84,14 @@ const reducer = (state, action) => {
         }
       };
 
-    case action.setAccount:
+    case actions.setAccount:
       return { ...state, selectedAccount: action.account };
-    case action.fetchAccountStats:
+    case actions.fetchAccountStats:
       return {
         ...state,
         accountStats: { ...state.accountStats, balanceFetching: true }
       };
-    case action.setAccountBalance:
+    case actions.setAccountBalance:
       return {
         ...state,
         accountStats: {
@@ -116,32 +116,34 @@ const fetchTokenStats = (dispatch, token) => {
   // Fetch asynchronously all data points
   fetch(`${BASE_URL}/${token}/stats/average`)
     .then(response => response.json())
-    .then(data => console.log("average", data));
+    .then(averageTx => dispatch({ type: actions.setAvgTx, averageTx }));
 
   fetch(`${BASE_URL}/${token}/stats/median`)
     .then(response => response.json())
-    .then(data => console.log("median", data));
+    .then(medianTx => dispatch({ type: actions.setMedTx, medianTx }));
 
   fetch(`${BASE_URL}/${token}/stats/richest`)
     .then(response => response.json())
-    .then(data => console.log("richest", data));
+    .then(richestAcc => dispatch({ type: actions.setRichestAcc, richestAcc }));
 
   fetch(`${BASE_URL}/${token}/stats/mostActive`)
     .then(response => response.json())
-    .then(data => console.log("mostActive", data));
+    .then(mostActiveAcc =>
+      dispatch({ type: actions.setMostActAcc, mostActiveAcc })
+    );
 };
 
 const setAccount = (dispatch, account) =>
-  dispatch({ type: actions.setToken, account });
+  dispatch({ type: actions.setAccount, account });
 
 const fetchAccountStats = (dispatch, token, account) => {
   // set fetching variables to true
-  dispatch({ type: actions.fetchTokenStats });
+  dispatch({ type: actions.fetchAccountStats });
 
   // Fetch asynchronously all data points
   fetch(`${BASE_URL}/${token}/account/${account}/balance`)
     .then(response => response.json())
-    .then(data => console.log("balance", data));
+    .then(balance => dispatch({ type: actions.setAccountBalance, balance }));
 };
 
 export {

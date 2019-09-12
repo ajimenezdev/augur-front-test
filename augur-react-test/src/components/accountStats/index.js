@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment, useState } from "react";
 import PropTypes from "prop-types";
 import {
   Card,
@@ -6,29 +6,94 @@ import {
   CardContent,
   Divider,
   IconButton,
-  Icon
+  Icon,
+  CircularProgress,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  TextField,
+  DialogActions,
+  Button
 } from "@material-ui/core";
-// import "./tokenStats.css";
+import "./accountStats.css";
 
-const AccountStats = () => {
+const AccountStats = ({
+  account,
+  accountStats,
+  onAccountChange,
+  onForceRefresh
+}) => {
+  const { balance, balanceFetching } = accountStats;
+  const [editVisible, setEditVisible] = useState(false);
+  const [newAccount, setNewAccount] = useState("");
   return (
-    <Card>
-      <CardHeader
-        title="Account Stats"
-        subheader="0x200a328032c81691da4b29c824558ee85ad95d29"
-        action={
-          <IconButton aria-label="refresh-accountStats">
-            <Icon className="accountStats-refreshIcon">refresh</Icon>
-          </IconButton>
-        }
-      />
-      <CardContent className="accountStats-content">
-        <div className="accountStats-infoRow">
-          <span className="accountStats-label">Balance:</span>
-          <span className="accountStats-value">31824654531310477000</span>
-        </div>
-      </CardContent>
-    </Card>
+    <Fragment>
+      <Card>
+        <CardHeader
+          title="Account Stats"
+          subheader={account}
+          action={
+            <Fragment>
+              <IconButton
+                aria-label="refresh-accountStats"
+                onClick={() => setEditVisible(true)}
+              >
+                <Icon className="accountStats-refreshIcon">edit</Icon>
+              </IconButton>
+              <IconButton
+                aria-label="refresh-accountStats"
+                onClick={onForceRefresh}
+              >
+                <Icon className="accountStats-refreshIcon">refresh</Icon>
+              </IconButton>
+            </Fragment>
+          }
+        />
+        <CardContent className="accountStats-content">
+          <div className="accountStats-infoRow">
+            <span className="accountStats-label">Balance:</span>
+            {balanceFetching ? (
+              <CircularProgress size={20} />
+            ) : (
+              <span className="accountStats-value">{balance}</span>
+            )}
+          </div>
+        </CardContent>
+      </Card>
+      <Dialog
+        open={editVisible}
+        onClose={() => setEditVisible(false)}
+        aria-labelledby="form-dialog-title"
+      >
+        <DialogTitle id="form-dialog-title">Change Account</DialogTitle>
+        <DialogContent>
+          <TextField
+            autoFocus
+            margin="dense"
+            id="account"
+            label="Account address"
+            type="text"
+            onChange={event => setNewAccount(event.target.value)}
+            value={newAccount}
+            fullWidth
+          />
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() => setEditVisible(false)} color="primary">
+            Cancel
+          </Button>
+          <Button
+            onClick={() => {
+              setEditVisible(false);
+              onAccountChange(newAccount);
+            }}
+            color="primary"
+          >
+            Save
+          </Button>
+        </DialogActions>
+      </Dialog>
+    </Fragment>
   );
 };
 

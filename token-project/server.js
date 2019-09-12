@@ -1,4 +1,5 @@
 const express = require("express");
+const cors = require('cors');
 
 const {
   loadTransactions,
@@ -10,6 +11,8 @@ const {
 } = require("./calculations");
 
 const app = express();
+app.use(cors());
+
 module.exports = app;
 
 app.get("/:token/account/:account/balance", (request, response) => {
