@@ -29,7 +29,7 @@ const AccountStats = ({
   const [newAccount, setNewAccount] = useState("");
   return (
     <Fragment>
-      <Card>
+      <Card className="accountStats">
         <CardHeader
           title="Account Stats"
           subheader={account}
@@ -64,6 +64,7 @@ const AccountStats = ({
               </span>
             )}
           </div>
+          <Divider />
         </CardContent>
       </Card>
       <Dialog

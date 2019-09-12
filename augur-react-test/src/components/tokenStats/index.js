@@ -24,7 +24,7 @@ const TokenStats = ({ token, tokenStats, onForceRefresh }) => {
     mostActiveAccFetching
   } = tokenStats;
   return (
-    <Card>
+    <Card className="tokenStats">
       <CardHeader
         title="Token Stats"
         subheader={token}
@@ -41,7 +41,7 @@ const TokenStats = ({ token, tokenStats, onForceRefresh }) => {
         <div className="tokenStats-infoRow">
           <span className="tokenStats-label">Average Token Transaction:</span>
           {averageTxFetching ? (
-            <CircularProgress size={20} />
+            <CircularProgress size={20} className="tokenStats-value" />
           ) : (
             <span className="tokenStats-value">
               {averageTx &&
@@ -55,7 +55,7 @@ const TokenStats = ({ token, tokenStats, onForceRefresh }) => {
         <div className="tokenStats-infoRow">
           <span className="tokenStats-label">Median Token Transaction:</span>
           {medianTxFetching ? (
-            <CircularProgress size={20} />
+            <CircularProgress size={20} className="tokenStats-value" />
           ) : (
             <span className="tokenStats-value">
               {medianTx &&
@@ -66,19 +66,19 @@ const TokenStats = ({ token, tokenStats, onForceRefresh }) => {
           )}
         </div>
         <Divider variant="fullWidth" />
-        <div className="tokenStats-infoRow">
+        <div className="tokenStats-infoCol">
           <span className="tokenStats-label">Richest Token holder:</span>
           {richestAccFetching ? (
-            <CircularProgress size={20} />
+            <CircularProgress size={20} className="tokenStats-value" />
           ) : (
             <span className="tokenStats-value">{richestAcc}</span>
           )}
         </div>
         <Divider variant="fullWidth" />
-        <div className="tokenStats-infoRow">
+        <div className="tokenStats-infoCol">
           <span className="tokenStats-label">MostActive Token holder:</span>
           {mostActiveAccFetching ? (
-            <CircularProgress size={20} />
+            <CircularProgress size={20} className="tokenStats-value" />
           ) : (
             <span className="tokenStats-value">{mostActiveAcc}</span>
           )}

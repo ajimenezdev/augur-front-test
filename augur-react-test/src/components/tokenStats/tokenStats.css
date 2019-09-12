@@ -1,7 +1,4 @@
 .tokenStats-content {
-  /* display: flex;
-  flex-direction: column;
-  align-items: flex-start; */
 }
 
 .tokenStats-infoRow {
@@ -13,8 +10,30 @@
   padding-bottom: 16px;
 }
 
-.tokenStats-label {
+.tokenStats-infoCol {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  padding-top: 16px;
+  padding-bottom: 16px;
+}
+
+.tokenStats-infoCol .tokenStats-label {
+  align-self: flex-start;
+}
+
+.tokenStats-infoCol .tokenStats-value {
+  align-self: flex-end;
+  text-align: right;
 }
 
 .tokenStats-value {
+  font-weight: bold;
+}
+
+@media screen and (max-width: 500px) {
+  .tokenStats .MuiCardHeader-subheader,
+  .tokenStats-infoCol .tokenStats-value {
+    font-size: 12px;
+  }
 }

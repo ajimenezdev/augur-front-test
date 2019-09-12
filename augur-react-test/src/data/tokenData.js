@@ -13,7 +13,7 @@ const initialState = {
     mostActiveAcc: null,
     mostActiveAccFetching: false
   },
-  selectedAccount: null,
+  selectedAccount: "0xfbb1b73c4f0bda4f67dca266ce6ef42f520fbb98",
   accountStats: {
     balance: null,
     balanceFetching: false

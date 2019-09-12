@@ -1,0 +1,18 @@
+.accountStats-infoRow {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding-top: 16px;
+  padding-bottom: 16px;
+}
+
+.accountStats-value {
+  font-weight: bold;
+}
+
+@media screen and (max-width: 500px) {
+  .accountStats .MuiCardHeader-subheader {
+    font-size: 12px;
+  }
+}

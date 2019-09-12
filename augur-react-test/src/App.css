@@ -25,11 +25,9 @@
   grid-template-rows: 400px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
+@media screen and (max-width: 900px) {
+  .App-content {
+    grid-template-columns: 1fr;
+    grid-template-rows: 400px 200px;
   }
 }
