@@ -88,6 +88,10 @@ const TokenStats = ({ token, tokenStats, onForceRefresh }) => {
   );
 };
 
-TokenStats.propTypes = {};
+TokenStats.propTypes = {
+  token: PropTypes.string,
+  tokenStats: PropTypes.object,
+  onForceRefresh: PropTypes.func
+};
 
 export default TokenStats;

@@ -134,6 +134,11 @@ const AccountStats = ({
   );
 };
 
-AccountStats.propTypes = {};
+AccountStats.propTypes = {
+  account: PropTypes.string,
+  accountStats: PropTypes.object,
+  onAccountChange: PropTypes.func,
+  onForceRefresh: PropTypes.func
+};
 
 export default AccountStats;

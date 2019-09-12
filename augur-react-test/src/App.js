@@ -71,7 +71,7 @@ function App() {
           vertical: "bottom",
           horizontal: "left"
         }}
-        open={error}
+        open={!!error}
         autoHideDuration={6000}
         onClose={() => setError("")}
         ContentProps={{
